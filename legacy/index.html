@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-bind="metaTitle">Portfolio</title>
+  <meta name="description" content="Portfolio" data-bind="metaDesc" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- particle constellation canvas (fixed, full-bleed background) -->
+  <canvas id="constellation" aria-hidden="true"></canvas>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="logo" href="#top">
+        <span class="logo__mark" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M2 6.5 11 2l9 4.5v9L11 20 2 15.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M2 6.5 11 11l9-4.5M11 11v9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="logo__word" data-bind="brand">Portfolio</span>
+      </a>
+      <nav class="nav__links">
+        <a href="#about" data-i18n="nav.about">ТАНИЛЦУУЛГА</a>
+        <a href="#skills" data-i18n="nav.skills">УР ЧАДВАР</a>
+        <a href="#work" data-i18n="nav.work">АЖИЛ</a>
+        <a class="btn btn--primary" href="#contact" data-i18n="nav.contact">ХОЛБОО БАРИХ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero section">
+      <div class="hero__text">
+        <p class="eyebrow" data-bind="heroEyebrow">МЭДЛЭГЭЭ БҮТЭЭЛ БОЛГО</p>
+        <h1 class="display" data-bind="heroTitle">Сайн уу,<br />би энд байна.</h1>
+        <p class="body" data-bind="heroSubtitle">Энэ бол миний танилцуулга вэб хуудас.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#work" data-i18n="hero.cta">АЖЛУУДЫГ ҮЗЭХ</a>
+          <a class="btn btn--ghost" href="#contact" data-i18n="hero.cta2">ХОЛБОО БАРИХ</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about">
+      <p class="eyebrow" data-i18n="about.kicker">ТАНИЛЦУУЛГА</p>
+      <h2 class="heading" data-bind="aboutTitle">Миний тухай</h2>
+      <p class="body body--measure" data-bind="aboutBody">Энд миний тухай дэлгэрэнгүй мэдээлэл орно.</p>
+      <ul class="facts" data-region="facts"></ul>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section skills" id="skills">
+      <p class="eyebrow" data-i18n="skills.kicker">УР ЧАДВАР</p>
+      <h2 class="heading" data-i18n="skills.title">Юу хийж чаддаг вэ</h2>
+      <div class="chips" data-region="skills"></div>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section class="section work" id="work">
+      <p class="eyebrow" data-i18n="work.kicker">АЖИЛ</p>
+      <h2 class="heading" data-i18n="work.title">Сонгомол төслүүд</h2>
+      <div class="cards" data-region="projects"></div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact">
+      <p class="eyebrow" data-i18n="contact.kicker">ХОЛБОО БАРИХ</p>
+      <h2 class="display display--sm" data-bind="contactTitle">Хамтдаа ажиллах уу?</h2>
+      <div class="contact__links" data-region="contacts"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span data-bind="footer">© Portfolio</span>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
