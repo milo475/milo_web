@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "seed": "node server/seed.mjs",
     "server": "node server/index.js",
-    "create-admin": "node server/createAdmin.mjs"
+    "create-admin": "node server/createAdmin.mjs",
+    "setup:db": "node server/setup.mjs"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
