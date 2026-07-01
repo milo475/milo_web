@@ -3,10 +3,10 @@
    Энд бүх контентоо засаж болно.
    ============================================================ */
 export const PORTFOLIO_DATA = {
-  brand: "Мөнх-Очир",
+  brand: "ocir",
   meta: {
-    title: "Мөнх-Очир — Portfolio",
-    desc: "Программ хангамжийн хөгжүүлэгч Мөнх-Очирын танилцуулга вэб хуудас",
+    title: "ocir — Kali Linux сургалт",
+    desc: "Kali Linux болон кибер аюулгүй байдлыг эхнээс нь монгол хэлээр заах сургалтын вэб — бодит виртуал терминал, түвшинчилсэн хичээл, сорилтой.",
   },
   hero: {
     eyebrow: "ПРОГРАММ ХАНГАМЖИЙН ХӨГЖҮҮЛЭГЧ",
@@ -59,7 +59,7 @@ export const PORTFOLIO_DATA = {
     { label: "И-МЭЙЛ", url: "mailto:mnkhochir3@gmail.com" },
     { label: "GITHUB", url: "https://github.com/milo475" },
   ],
-  footer: "© 2026 Мөнх-Очир",
+  footer: "© 2026 ocir · Kali Linux сургалт",
 };
 
 export default PORTFOLIO_DATA;

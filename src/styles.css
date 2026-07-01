@@ -12,8 +12,16 @@
   --color-amber-spark: #ffb829;
   --color-lichen: #15846e;
 
+  /* Kali / terminal accents */
+  --color-kali: #2bd6ff;
+  --color-kali-deep: #0a8bb5;
+  --color-term-green: #4be38a;
+  --color-term-blue: #5ab0ff;
+  --color-term-bg: #0a0f14;
+
   /* Type */
   --font-acronym: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Code', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, 'Liberation Mono', monospace;
 
   --text-caption: 12px;
   --text-body-sm: 14px;
@@ -152,6 +160,18 @@ main, .nav, .footer { position: relative; z-index: 1; }
 }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--color-bone); }
 .logo__mark { color: var(--color-plum-voltage); display: inline-flex; }
+.logo__mark--text {
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-bone);
+  background: var(--color-plum-voltage);
+  border-radius: 8px;
+  padding: 5px 8px;
+}
 .logo__word { font-weight: 600; font-size: var(--text-subheading); letter-spacing: 0.01em; }
 .nav__links { display: flex; align-items: center; gap: var(--spacing-24); }
 .nav__links a:not(.btn) {
@@ -278,4 +298,700 @@ main, .nav, .footer { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
+}
+
+/* ============================================================
+   Kali Linux — nav button, eyebrow & lessons view
+   ============================================================ */
+
+.eyebrow--kali { color: var(--color-kali); }
+
+/* ---- kali nav button ---- */
+.btn--kali {
+  background: rgba(43, 214, 255, 0.08);
+  color: var(--color-kali);
+  border: 1px solid rgba(43, 214, 255, 0.45);
+  font-family: var(--font-mono);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  gap: 8px;
+  cursor: pointer;
+}
+.btn--kali:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-kali);
+  background: rgba(43, 214, 255, 0.16);
+  box-shadow: 0 0 0 1px rgba(43, 214, 255, 0.25), 0 8px 24px -12px var(--color-kali);
+}
+.btn--kali.is-active {
+  background: var(--color-kali);
+  color: #00131c;
+  border-color: var(--color-kali);
+}
+.btn--kali__icon {
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  opacity: 0.9;
+}
+
+/* ---- lessons view ---- */
+.lessons {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-120) var(--spacing-24) var(--spacing-60);
+  min-height: 100vh;
+}
+.lessons__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-24);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-36);
+}
+.lessons__title {
+  font-weight: 200;
+  font-size: clamp(34px, 6vw, var(--text-display));
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin: var(--spacing-6) 0 var(--spacing-12);
+}
+.lessons__sub { color: var(--color-ash); font-size: var(--text-subheading); max-width: 48ch; }
+.lessons__back {
+  font-family: var(--font-mono);
+  text-transform: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* course / tool selector */
+.course-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-12);
+  margin-bottom: var(--spacing-30);
+}
+.course-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 10px 16px;
+  color: var(--color-ash);
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, color .15s ease, transform .15s ease;
+}
+.course-tab:hover { border-color: rgba(43,214,255,.45); color: var(--color-bone); transform: translateY(-1px); }
+.course-tab.is-active {
+  background: rgba(43, 214, 255, 0.12);
+  border-color: var(--color-kali);
+  color: var(--color-bone);
+}
+.course-tab__name {
+  font-family: var(--font-mono);
+  font-size: var(--text-body-sm);
+  letter-spacing: 0.01em;
+}
+.course-tab.is-active .course-tab__name { color: var(--color-kali); }
+.course-tab__tag {
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-smoke);
+}
+
+.lessons__grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--spacing-30);
+  align-items: start;
+}
+
+/* ---- lesson list (sidebar) ---- */
+.lesson-list {
+  position: sticky;
+  top: 120px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--radius);
+  background: rgba(0,0,0,.35);
+  padding: var(--spacing-12);
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+.lesson-list ol { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.lesson-list__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 10px 12px;
+  color: var(--color-ash);
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.lesson-list__item:hover { background: rgba(255,255,255,.04); color: var(--color-bone); }
+.lesson-list__item.is-active {
+  background: rgba(43, 214, 255, 0.10);
+  border-color: rgba(43, 214, 255, 0.45);
+  color: var(--color-bone);
+}
+.lesson-list__num {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-kali);
+  opacity: 0.85;
+}
+.lesson-list__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.lesson-list__name { font-size: var(--text-body-sm); line-height: 1.25; }
+.lesson-list__level {
+  font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--color-smoke);
+}
+
+/* ---- lesson content ---- */
+.lesson-content {
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--radius);
+  background: rgba(0,0,0,.30);
+  padding: var(--spacing-36);
+  min-width: 0;
+}
+.lesson-content__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-kali);
+}
+.lesson-content__title {
+  font-weight: 300;
+  font-size: clamp(26px, 4vw, var(--text-heading));
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: var(--spacing-12) 0;
+}
+.lesson-content__summary { color: var(--color-ash); font-size: var(--text-subheading); }
+.lesson-content__body {
+  margin-top: var(--spacing-30);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-18);
+}
+.lesson__p { color: var(--color-ash); font-size: var(--text-body-sm); line-height: 1.7; }
+.lesson__h {
+  font-weight: 500;
+  font-size: var(--text-subheading);
+  color: var(--color-bone);
+  letter-spacing: 0.01em;
+  margin-top: var(--spacing-12);
+}
+.lesson__list { color: var(--color-ash); font-size: var(--text-body-sm); line-height: 1.7; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; }
+.lesson__list li::marker { color: var(--color-kali); }
+
+/* ---- terminal block ---- */
+.term {
+  border: 1px solid rgba(43, 214, 255, 0.22);
+  border-radius: 12px;
+  background: var(--color-term-bg);
+  overflow: hidden;
+}
+.term__bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  background: rgba(255,255,255,.04);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.term__dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.term__dot--r { background: #ff5f57; }
+.term__dot--y { background: #febc2e; }
+.term__dot--g { background: #28c840; }
+.term__body {
+  margin: 0;
+  padding: var(--spacing-18);
+  font-family: var(--font-mono);
+  font-size: var(--text-body-sm);
+  line-height: 1.6;
+  color: var(--color-ash);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+}
+.term__line1 { color: var(--color-term-blue); }
+.term__line2 { color: var(--color-term-blue); }
+.term__user { color: var(--color-term-green); }
+.term__path { color: var(--color-amber-spark); }
+.term__prompt { color: var(--color-bone); }
+.term__out { color: var(--color-smoke); }
+
+/* ---- callouts (note / warn) ---- */
+.callout {
+  border-radius: 12px;
+  padding: var(--spacing-18);
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.callout p { font-size: var(--text-body-sm); line-height: 1.6; color: var(--color-ash); }
+.callout__tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+.callout--note { border-color: rgba(43, 214, 255, 0.30); background: rgba(43, 214, 255, 0.06); }
+.callout--note .callout__tag { color: var(--color-kali); }
+.callout--warn { border-color: rgba(255, 184, 41, 0.35); background: rgba(255, 184, 41, 0.07); }
+.callout--warn .callout__tag { color: var(--color-amber-spark); }
+
+/* ---- lesson prev/next ---- */
+.lesson-content__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-12);
+  margin-top: var(--spacing-36);
+  padding-top: var(--spacing-24);
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.lesson-content__nav .btn { cursor: pointer; }
+.lesson-content__nav .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+.lesson-content__progress {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-smoke);
+}
+
+/* ---- lessons responsive ---- */
+@media (max-width: 860px) {
+  .lessons__grid { grid-template-columns: 1fr; }
+  .lesson-list {
+    position: static;
+    max-height: none;
+  }
+  .lesson-list ol {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 4px;
+  }
+  .lesson-list__item { width: auto; flex: 0 0 auto; }
+  .lesson-list__level { display: none; }
+}
+
+@media (max-width: 640px) {
+  .lessons { padding-top: 150px; }
+  .lesson-content { padding: var(--spacing-24) var(--spacing-18); }
+  .lessons__back { width: 100%; }
+}
+
+/* ============================================================
+   Virtual terminal view
+   ============================================================ */
+
+/* lessons head: terminal + back buttons */
+.lessons__actions { display: flex; gap: var(--spacing-12); flex-wrap: wrap; }
+.lessons__terminal { cursor: pointer; }
+
+.terminal-view {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-120) var(--spacing-24) var(--spacing-60);
+  min-height: 100vh;
+}
+.terminal-view__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-24);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-30);
+}
+.terminal-view__title {
+  font-weight: 200;
+  font-size: clamp(30px, 5vw, var(--text-heading-lg));
+  letter-spacing: -0.04em;
+  margin-top: var(--spacing-6);
+}
+.terminal-view__back { font-family: var(--font-mono); text-transform: none; cursor: pointer; white-space: nowrap; }
+
+/* the terminal window */
+.t-window {
+  border: 1px solid rgba(43, 214, 255, 0.25);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--color-term-bg);
+  box-shadow: 0 24px 60px -30px rgba(43, 214, 255, 0.5);
+  cursor: text;
+}
+.t-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,.05);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.t-dot { width: 12px; height: 12px; border-radius: 50%; }
+.t-dot--r { background: #ff5f57; }
+.t-dot--y { background: #febc2e; }
+.t-dot--g { background: #28c840; }
+.t-bar__title {
+  margin-left: 8px;
+  margin-right: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-smoke);
+}
+.t-tool {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  color: var(--color-ash);
+  font-size: 13px;
+  line-height: 1;
+  padding: 5px 8px;
+  margin-left: 6px;
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, background .15s ease;
+}
+.t-tool:hover { border-color: var(--color-kali); color: var(--color-kali); background: rgba(43,214,255,.08); }
+.t-dot--btn { border: none; padding: 0; cursor: pointer; }
+.t-dot--btn:hover { filter: brightness(1.3); box-shadow: 0 0 0 3px rgba(255,95,87,.25); }
+.t-close {
+  margin-left: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 8px;
+  color: var(--color-smoke);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, background .15s ease;
+}
+.t-close:hover { border-color: #ff5f57; color: #ff5f57; background: rgba(255,95,87,.08); }
+
+.t-body {
+  font-family: var(--font-mono);
+  font-size: var(--text-body-sm);
+  line-height: 1.55;
+  color: var(--color-ash);
+  padding: var(--spacing-18);
+  height: 60vh;
+  min-height: 360px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.t-welcome { color: var(--color-kali); opacity: 0.85; margin-bottom: var(--spacing-12); white-space: pre-wrap; }
+
+.t-entry { margin-bottom: 10px; }
+.t-entry__cmd { display: flex; flex-direction: column; }
+.t-entry__out { white-space: pre-wrap; color: var(--color-ash); }
+
+.t-l1 { color: var(--color-term-blue); }
+.t-l2 { color: var(--color-term-blue); display: flex; align-items: center; }
+.t-user { color: var(--color-term-green); }
+.t-path { color: var(--color-amber-spark); }
+.t-dollar { color: var(--color-bone); margin: 0 1px; }
+
+.t-input-line { display: flex; flex-direction: column; }
+.t-input {
+  flex: 1;
+  min-width: 2ch;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-bone);
+  font-family: var(--font-mono);
+  font-size: var(--text-body-sm);
+  caret-color: var(--color-term-green);
+  padding: 0;
+}
+
+.t-hint {
+  margin-top: var(--spacing-12);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-smoke);
+}
+.t-hint code {
+  color: var(--color-kali);
+  background: rgba(43,214,255,.08);
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+
+@media (max-width: 640px) {
+  .terminal-view { padding-top: 150px; }
+  .t-body { height: 65vh; }
+  .terminal-view__back { width: 100%; }
+}
+
+/* ============================================================
+   Сорил (challenge) CTA ба confetti
+   ============================================================ */
+.confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.challenge-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-18);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-30);
+  padding: var(--spacing-24);
+  border-radius: var(--radius);
+  border: 1px solid rgba(43, 214, 255, 0.4);
+  background: linear-gradient(135deg, rgba(43,214,255,0.10), rgba(128,82,255,0.10));
+}
+.challenge-cta__info { min-width: 0; }
+.challenge-cta__title {
+  font-size: var(--text-subheading);
+  font-weight: 600;
+  color: var(--color-kali);
+  margin-bottom: 4px;
+}
+.challenge-cta__text {
+  font-size: var(--text-body-sm);
+  color: var(--color-ash);
+  line-height: 1.5;
+  max-width: 60ch;
+}
+.challenge-cta__btn { cursor: pointer; white-space: nowrap; }
+
+/* ============================================================
+   Auth, progress, admin
+   ============================================================ */
+
+/* nav auth area */
+.nav__auth { display: inline-flex; align-items: center; gap: 8px; }
+.nav__user { font-family: var(--font-mono); font-size: var(--text-body-sm); color: var(--color-kali); }
+
+/* modal */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,.7);
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--spacing-24); backdrop-filter: blur(4px);
+}
+.auth-modal {
+  position: relative;
+  width: 100%; max-width: 380px;
+  background: #0b0f14;
+  border: 1px solid rgba(43,214,255,.3);
+  border-radius: var(--radius);
+  padding: var(--spacing-30);
+}
+.auth-modal__x {
+  position: absolute; top: 14px; right: 14px;
+  background: transparent; border: none; color: var(--color-smoke);
+  font-size: 16px; cursor: pointer;
+}
+.auth-modal__x:hover { color: var(--color-bone); }
+.auth-modal__title { font-weight: 300; font-size: var(--text-heading-sm); margin: 4px 0 var(--spacing-24); }
+.auth-form { display: flex; flex-direction: column; gap: var(--spacing-12); }
+.auth-form__field { display: flex; flex-direction: column; gap: 6px; }
+.auth-form__field span { font-size: var(--text-caption); letter-spacing: .04em; color: var(--color-smoke); text-transform: uppercase; }
+.auth-form__field input,
+.admin__field input,
+.admin__field textarea,
+.admin__bar select {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--color-bone);
+  font-family: var(--font-acronym);
+  font-size: var(--text-body-sm);
+}
+.auth-form__field input:focus,
+.admin__field input:focus,
+.admin__field textarea:focus { outline: none; border-color: var(--color-kali); }
+.auth-form__err { color: #ff6b6b; font-size: var(--text-body-sm); }
+.auth-form__submit { margin-top: 6px; cursor: pointer; }
+.auth-modal__switch { margin-top: var(--spacing-18); font-size: var(--text-body-sm); color: var(--color-ash); }
+.auth-modal__link { background: none; border: none; color: var(--color-kali); cursor: pointer; font-size: var(--text-body-sm); padding: 0; }
+
+/* course progress bar */
+.course-progress { display: flex; align-items: center; gap: var(--spacing-12); margin-bottom: var(--spacing-24); }
+.course-progress__bar { flex: 1; height: 8px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
+.course-progress__fill { display: block; height: 100%; background: linear-gradient(90deg, var(--color-kali), var(--color-plum-voltage)); border-radius: 99px; transition: width .4s ease; }
+.course-progress__label { font-family: var(--font-mono); font-size: var(--text-caption); color: var(--color-smoke); white-space: nowrap; }
+
+/* lesson done */
+.lesson-list__item.is-done .lesson-list__num { color: var(--color-term-green); }
+.lesson-done { display: flex; align-items: center; gap: var(--spacing-12); margin-top: var(--spacing-24); flex-wrap: wrap; }
+.lesson-done__btn { cursor: pointer; }
+.lesson-done__hint { font-size: var(--text-caption); color: var(--color-smoke); }
+.challenge-cta__done { color: var(--color-term-green); font-size: var(--text-body-sm); margin-left: 6px; }
+
+/* admin panel */
+.admin { max-width: var(--page-max-width); margin: 0 auto; padding: var(--spacing-120) var(--spacing-24) var(--spacing-60); min-height: 100vh; }
+.admin__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--spacing-18); flex-wrap: wrap; margin-bottom: var(--spacing-24); }
+.admin__title { font-weight: 200; font-size: clamp(28px,5vw,var(--text-heading)); letter-spacing: -.03em; }
+.admin__bar { display: flex; align-items: center; gap: var(--spacing-18); flex-wrap: wrap; margin-bottom: var(--spacing-18); }
+.admin__msg { font-family: var(--font-mono); font-size: var(--text-caption); color: var(--color-kali); }
+.admin__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-24); align-items: start; }
+.admin__list { border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); padding: var(--spacing-12); max-height: 70vh; overflow-y: auto; }
+.admin__row { display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 10px; }
+.admin__row:hover { background: rgba(255,255,255,.04); }
+.admin__rownum { font-family: var(--font-mono); font-size: 11px; color: var(--color-kali); }
+.admin__rowtitle { flex: 1; font-size: var(--text-body-sm); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin__rowlevel { font-size: 11px; color: var(--color-smoke); }
+.admin__mini { background: transparent; border: 1px solid rgba(255,255,255,.18); border-radius: 8px; color: var(--color-ash); font-size: 11px; padding: 3px 8px; cursor: pointer; }
+.admin__mini:hover { border-color: var(--color-kali); color: var(--color-kali); }
+.admin__mini--del:hover { border-color: #ff5f57; color: #ff5f57; }
+.admin__form { border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); padding: var(--spacing-24); display: flex; flex-direction: column; gap: var(--spacing-12); }
+.admin__form h3 { font-weight: 500; font-size: var(--text-subheading); }
+.admin__field { display: flex; flex-direction: column; gap: 6px; }
+.admin__field span { font-size: 11px; letter-spacing: .04em; color: var(--color-smoke); text-transform: uppercase; }
+.admin__field textarea { font-family: var(--font-mono); resize: vertical; }
+
+@media (max-width: 760px) {
+  .admin__grid { grid-template-columns: 1fr; }
+  .admin { padding-top: 150px; }
+}
+
+/* ============================================================
+   Home landing — Kali Linux сургалтын нүүр
+   ============================================================ */
+.landing-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-18);
+  padding-top: 0;
+}
+.stat {
+  border: 1px solid rgba(43,214,255,.22);
+  border-radius: var(--radius);
+  padding: var(--spacing-24);
+  text-align: center;
+  background: rgba(43,214,255,.04);
+}
+.stat__n { display: block; font-weight: 200; font-size: clamp(28px,5vw,var(--text-heading)); letter-spacing: -.04em; color: var(--color-kali); }
+.stat__l { font-size: var(--text-caption); letter-spacing: .05em; text-transform: uppercase; color: var(--color-smoke); }
+
+/* курсын карт товч хэлбэрээр */
+.card--btn {
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+/* онцлогийн grid */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: var(--spacing-24);
+}
+.feature {
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--radius);
+  padding: var(--spacing-30);
+}
+.feature__icon { font-size: 28px; margin-bottom: var(--spacing-12); }
+.feature__title { font-size: var(--text-subheading); font-weight: 500; color: var(--color-bone); margin-bottom: 8px; }
+.feature__text { font-size: var(--text-body-sm); line-height: 1.6; color: var(--color-ash); }
+
+/* ёс зүй ба CTA */
+.ethics {
+  border: 1px solid rgba(255,184,41,.30);
+  background: rgba(255,184,41,.05);
+  border-radius: var(--radius);
+  padding: var(--spacing-36);
+}
+.landing-cta {
+  border: 1px solid rgba(43,214,255,.3);
+  background: linear-gradient(135deg, rgba(43,214,255,.10), rgba(128,82,255,.10));
+  border-radius: var(--radius);
+  padding: var(--spacing-60) var(--spacing-36);
+  text-align: center;
+}
+.landing-cta .hero__actions { justify-content: center; }
+
+@media (max-width: 640px) {
+  .landing-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============================================================
+   Screen time (миний цаг)
+   ============================================================ */
+.screentime {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-120) var(--spacing-24) var(--spacing-60);
+  min-height: 100vh;
+}
+.screentime__head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: var(--spacing-18); flex-wrap: wrap; margin-bottom: var(--spacing-30);
+}
+.screentime__title { font-weight: 200; font-size: clamp(28px,5vw,var(--text-heading)); letter-spacing: -.03em; margin-top: var(--spacing-6); }
+.st-h { font-size: var(--text-heading-sm); margin-bottom: var(--spacing-18); }
+
+.st-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-18); margin-bottom: var(--spacing-36); }
+.st-card {
+  border: 1px solid rgba(43,214,255,.22);
+  background: rgba(43,214,255,.05);
+  border-radius: var(--radius);
+  padding: var(--spacing-24);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.st-card__l { font-size: var(--text-caption); letter-spacing: .05em; text-transform: uppercase; color: var(--color-smoke); }
+.st-card__v { font-weight: 200; font-size: clamp(24px,4vw,var(--text-heading-sm)); color: var(--color-kali); letter-spacing: -.02em; }
+
+/* өдрийн bar chart */
+.st-chart-wrap { margin-bottom: var(--spacing-60); }
+.st-chart {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-12);
+  align-items: end;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--radius);
+  padding: var(--spacing-24) var(--spacing-18);
+}
+.st-bar { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.st-bar__time { font-size: 10px; color: var(--color-smoke); height: 14px; }
+.st-bar__track { width: 100%; max-width: 46px; height: 160px; background: rgba(255,255,255,.05); border-radius: 10px; display: flex; align-items: flex-end; overflow: hidden; }
+.st-bar__fill { width: 100%; min-height: 3px; background: linear-gradient(180deg, var(--color-kali), var(--color-plum-voltage)); border-radius: 10px 10px 0 0; transition: height .4s ease; }
+.st-bar__day { font-size: var(--text-caption); color: var(--color-ash); }
+.st-bar__dom { font-size: 10px; color: var(--color-smoke); }
+
+/* хичээл тус бүрийн жагсаалт */
+.st-lessons { list-style: none; display: flex; flex-direction: column; gap: var(--spacing-12); }
+.st-lesson { display: grid; grid-template-columns: 1fr 120px auto; align-items: center; gap: var(--spacing-12); }
+.st-lesson__name { font-size: var(--text-body-sm); color: var(--color-bone); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.st-lesson__bar { height: 8px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
+.st-lesson__fill { display: block; height: 100%; background: linear-gradient(90deg, var(--color-kali), var(--color-plum-voltage)); border-radius: 99px; }
+.st-lesson__time { font-family: var(--font-mono); font-size: var(--text-caption); color: var(--color-ash); white-space: nowrap; }
+
+@media (max-width: 640px) {
+  .st-cards { grid-template-columns: 1fr; }
+  .screentime { padding-top: 150px; }
+  .st-lesson { grid-template-columns: 1fr auto; }
+  .st-lesson__bar { display: none; }
+  .st-bar__track { height: 120px; }
 }
