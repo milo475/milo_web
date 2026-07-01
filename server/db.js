@@ -16,8 +16,13 @@ export const pool = mysql.createPool({
   database: process.env.DB_NAME || 'milo_kali',
   charset: 'utf8mb4',
   waitForConnections: true,
-  connectionLimit: 10,
+  // serverless дээр олон instance тус бүр өөрийн pool-той тул хязгаарыг бага барина
+  connectionLimit: Number(process.env.DB_POOL_LIMIT) || 3,
   namedPlaceholders: true,
+  // Managed MySQL (PlanetScale, Aiven г.м.) SSL шаарддаг бол DB_SSL=true
+  ...(process.env.DB_SSL === 'true'
+    ? { ssl: { rejectUnauthorized: true } }
+    : {}),
 });
 
 export default pool;

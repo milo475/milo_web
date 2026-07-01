@@ -332,6 +332,12 @@ app.get('/api/time', authRequired, async (req, res) => {
 });
 
 const PORT = Number(process.env.PORT) || 4000;
-app.listen(PORT, () => {
-  console.log(`✓ Сургалтын API → http://localhost:${PORT}/api/courses`);
-});
+// Vercel serverless дээр listen хийхгүй (функцээр ажиллана).
+// Локал/Railway дээр л сонсоно.
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`✓ Сургалтын API → http://localhost:${PORT}/api/courses`);
+  });
+}
+
+export default app;

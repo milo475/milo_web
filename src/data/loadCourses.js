@@ -3,8 +3,9 @@
 
    Ингэснээр backend/MySQL ажиллаагүй үед ч сайт хэвийн ажиллана. */
 import { COURSES as STATIC_COURSES } from './courses.js';
+import { API_BASE } from '../config.js';
 
-const API_URL = '/api/courses';
+const API_URL = API_BASE + '/api/courses';
 
 export async function loadCourses(signal) {
   try {

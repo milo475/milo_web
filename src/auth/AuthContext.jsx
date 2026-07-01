@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { API_BASE } from '../config.js';
 
 const AuthContext = createContext(null);
 const TOKEN_KEY = 'kali_token';
@@ -28,7 +29,7 @@ export async function apiFetch(url, options = {}) {
 
   let res;
   try {
-    res = await fetch(url, { ...options, headers });
+    res = await fetch(API_BASE + url, { ...options, headers });
   } catch {
     // сүлжээний алдаа — сервер унтарсан байж магадгүй
     throw new Error('Сервер рүү холбогдож чадсангүй. API сервер (npm run server) ажиллаж байгаа эсэхээ шалгана уу.');
