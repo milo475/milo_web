@@ -18,12 +18,11 @@ function sslOption() {
   return { ssl: { rejectUnauthorized: process.env.DB_SSL_REJECT === 'true' } };
 }
 
-// .sql файлаас CREATE DATABASE ба USE мөрүүдийг хасна
+// .sql файлаас CREATE DATABASE (олон мөрт) ба USE операторуудыг бүхэлд нь хасна
 function tablesOnly(file) {
   return readFileSync(path.join(__dirname, file), 'utf8')
-    .split('\n')
-    .filter((l) => !/^\s*(CREATE\s+DATABASE|USE)\b/i.test(l))
-    .join('\n');
+    .replace(/CREATE\s+DATABASE[\s\S]*?;/gi, '')
+    .replace(/USE\s+[^;]*;/gi, '');
 }
 
 const sql = tablesOnly('schema.sql') + '\n' + tablesOnly('auth_schema.sql');
