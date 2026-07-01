@@ -331,6 +331,33 @@ app.get('/api/time', authRequired, async (req, res) => {
   }
 });
 
+// админ: бүх хэрэглэгч + явцын нэгдсэн статистик
+app.get('/api/admin/users', authRequired, adminRequired, async (_req, res) => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT u.id, u.username, u.role, u.created_at,
+         (SELECT COUNT(*) FROM progress p WHERE p.user_id = u.id) AS lessons,
+         (SELECT COUNT(*) FROM challenge_results c WHERE c.user_id = u.id) AS challenges,
+         (SELECT COALESCE(SUM(seconds),0) FROM study_time s WHERE s.user_id = u.id) AS seconds
+       FROM users u ORDER BY u.id`
+    );
+    res.json(
+      rows.map((r) => ({
+        id: r.id,
+        username: r.username,
+        role: r.role,
+        created_at: r.created_at,
+        lessons: Number(r.lessons),
+        challenges: Number(r.challenges),
+        seconds: Number(r.seconds),
+      }))
+    );
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Хэрэглэгч ачаалах алдаа' });
+  }
+});
+
 const PORT = Number(process.env.PORT) || 4000;
 // Vercel serverless дээр listen хийхгүй (функцээр ажиллана).
 // Локал/Railway дээр л сонсоно.

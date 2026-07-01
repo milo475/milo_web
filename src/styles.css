@@ -995,3 +995,11 @@ main, .nav, .footer { position: relative; z-index: 1; }
   .st-lesson__bar { display: none; }
   .st-bar__track { height: 120px; }
 }
+
+/* админ хэрэглэгчдийн хүснэгт */
+.admin__users { border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); padding: var(--spacing-24); }
+.admin__table { width: 100%; border-collapse: collapse; font-size: var(--text-body-sm); }
+.admin__table th, .admin__table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.admin__table th { font-size: var(--text-caption); letter-spacing: .04em; text-transform: uppercase; color: var(--color-smoke); }
+.admin__table td { color: var(--color-ash); }
+.admin__table tr:hover td { background: rgba(255,255,255,.03); color: var(--color-bone); }

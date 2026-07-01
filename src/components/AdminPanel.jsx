@@ -9,6 +9,22 @@ export default function AdminPanel({ onBack }) {
   const [form, setForm] = useState(empty);
   const [editingId, setEditingId] = useState(null); // бүтэн id засаж байгаа эсэх
   const [msg, setMsg] = useState('');
+  const [tab, setTab] = useState('lessons'); // 'lessons' | 'users'
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    if (tab === 'users' && users === null) {
+      apiFetch('/api/admin/users')
+        .then(setUsers)
+        .catch((e) => setMsg('Хэрэглэгч ачаалах алдаа: ' + e.message));
+    }
+  }, [tab, users]);
+
+  const fmtMin = (s) => {
+    const m = Math.round((s || 0) / 60);
+    if (m >= 60) return `${Math.floor(m / 60)}ц ${m % 60}м`;
+    return `${m}м`;
+  };
 
   const load = useCallback(async () => {
     const data = await apiFetch('/api/courses');
@@ -100,6 +116,17 @@ export default function AdminPanel({ onBack }) {
         <button className="btn btn--ghost" onClick={onBack}>← БУЦАХ</button>
       </div>
 
+      <div className="course-tabs" style={{ marginBottom: 'var(--spacing-18)' }}>
+        <button className={`course-tab ${tab === 'lessons' ? 'is-active' : ''}`} onClick={() => setTab('lessons')}>
+          <span className="course-tab__name">Хичээл удирдах</span>
+        </button>
+        <button className={`course-tab ${tab === 'users' ? 'is-active' : ''}`} onClick={() => setTab('users')}>
+          <span className="course-tab__name">Хэрэглэгчид</span>
+        </button>
+      </div>
+
+      {tab === 'lessons' && (
+      <>
       <div className="admin__bar">
         <label>
           Курс:{' '}
@@ -160,6 +187,38 @@ export default function AdminPanel({ onBack }) {
           </button>
         </div>
       </div>
+      </>
+      )}
+
+      {tab === 'users' && (
+        <div className="admin__users">
+          {msg && <span className="admin__msg">{msg}</span>}
+          {users === null ? (
+            <p className="body">Ачааллаж байна…</p>
+          ) : (
+            <table className="admin__table">
+              <thead>
+                <tr>
+                  <th>#</th><th>Нэр</th><th>Эрх</th><th>Хичээл</th><th>Сорил</th><th>Цаг</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((u) => (
+                  <tr key={u.id}>
+                    <td>{u.id}</td>
+                    <td>{u.username}</td>
+                    <td>{u.role}</td>
+                    <td>{u.lessons}</td>
+                    <td>{u.challenges}</td>
+                    <td>{fmtMin(u.seconds)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+          <p className="lesson-done__hint">Нийт {users?.length ?? 0} хэрэглэгч</p>
+        </div>
+      )}
     </section>
   );
 }
