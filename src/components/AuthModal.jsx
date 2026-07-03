@@ -6,12 +6,17 @@ export default function AuthModal({ onClose }) {
   const [mode, setMode] = useState('login'); // 'login' | 'register'
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [err, setErr] = useState('');
   const [busy, setBusy] = useState(false);
 
   const submit = async (e) => {
     e.preventDefault();
     setErr('');
+    if (mode === 'register' && password !== password2) {
+      setErr('Нууц үг хоорондоо таарахгүй байна');
+      return;
+    }
     setBusy(true);
     try {
       if (mode === 'login') await login(username.trim(), password);
@@ -54,6 +59,18 @@ export default function AuthModal({ onClose }) {
               required
             />
           </label>
+          {mode === 'register' && (
+            <label className="auth-form__field">
+              <span>Нууц үг давтах</span>
+              <input
+                type="password"
+                value={password2}
+                onChange={(e) => setPassword2(e.target.value)}
+                autoComplete="new-password"
+                required
+              />
+            </label>
+          )}
 
           {err && <p className="auth-form__err">{err}</p>}
 
@@ -68,6 +85,7 @@ export default function AuthModal({ onClose }) {
             className="auth-modal__link"
             onClick={() => {
               setErr('');
+              setPassword2('');
               setMode(mode === 'login' ? 'register' : 'login');
             }}
           >
